@@ -25,12 +25,12 @@ class News(APIView):
             page = int(request.GET['page'])
             count = int(request.GET['count'])
         except (ValueError, KeyError):
-            return Response({'msg': 'invalid params',}, status=400)
+            return Response({'msg': 'invalid params'}, status=400)
 
         if page <= 0 or count <= 0:
             return Response({'msg': 'page and count must be positive'}, status=400)
 
-        news = New.objects.order_by('-date').all()[(page * count - count):(page*count)]
+        news = New.objects.order_by('-date').all()[(page * count - count):(page * count)]
         data = []
         today = date.today()
 
@@ -73,7 +73,6 @@ class News(APIView):
         id and JSON web token necessary.
         Returns message OK in dict.
         """
-        print(request.user.id)
         body = json.loads(request.body)
         if 'id' not in body:
             return Response({'msg': "invalid JSON body"}, status=400)
@@ -89,6 +88,7 @@ class News(APIView):
                 return Response({'msg': 'OK'}, status=200)
             else:
                 return Response({'msg': "Not found"}, status=404)
+
 
 class Upvotes(APIView):
 
@@ -123,6 +123,7 @@ class Upvotes(APIView):
 
             return Response({'msg': "Not found"}, status=404)
 
+
 class Comments(APIView):
 
     def get(self, request):
@@ -144,7 +145,7 @@ class Comments(APIView):
         new = New.objects.filter(id=id).first()
         if New:
             data = []
-            comments = Comment.objects.filter(news=new).all()[(page * count - count):(page*count)]
+            comments = Comment.objects.filter(news=new).all()[(page * count - count):(page * count)]
             if len(comments) > 0:
                 for comment in comments:
                     data.append({

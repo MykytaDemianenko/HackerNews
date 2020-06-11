@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from .backends import LoginSerializer, RegistrationSerializer
 
+
 class RegistrationAPIView(APIView):
     """
     Registers a new user.
@@ -18,7 +19,6 @@ class RegistrationAPIView(APIView):
         Username, email, and password are required.
         Returns a JSON web token.
         """
-        print(request.data)
 
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -45,7 +45,6 @@ class LoginAPIView(APIView):
         Email and password are required.
         Returns a JSON web token.
         """
-        print(request.data)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 

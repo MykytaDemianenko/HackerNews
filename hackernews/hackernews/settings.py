@@ -81,10 +81,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hackernews',
-        'USER' : 'mykyta',
-        'PASSWORD' : 'la38d5f3eaf1',
-        'HOST' : '127.0.0.1',
-        'PORT' : '5432',
+        'USER': 'mykyta',
+        'PASSWORD': 'la38d5f3eaf1',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -111,10 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-        ),
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'authentication.backends.JWTAuthentication',
-        )
+    )
 }
 
 
