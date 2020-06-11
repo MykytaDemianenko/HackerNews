@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import New, Comment, Upvote
-from datetime import date, datetime
+from datetime import date
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 import json
 
@@ -107,8 +107,12 @@ class Upvotes(APIView):
             except (ValueError, KeyError):
                 return Response({'msg': 'invalid params'}, status=400)
 
-            new = New.objects.filter(id=id).exclude(author_id=request.user.id).first()
-            upvote = Upvote.objects.filter(new_id=id, user_id=request.user.id, date__range=(date.today(), datetime.now())).first()
+            today = date.today()
+            new = New.objects.filter(id=id).first()
+            upvote = Upvote.objects.filter(new_id=id, user_id=request.user.id, date__range=(
+                "{} 00:00:00.000000+00:00".format(today),
+                "{} 23:59:59.999999+00:00".format(today))
+                                           ).first()
             if new:
                 if upvote is None:
                     Upvote.objects.create(
